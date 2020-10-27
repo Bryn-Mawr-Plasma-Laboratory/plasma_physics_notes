@@ -1,0 +1,113 @@
+\documentclass[14pt]{jpp}
+\usepackage{graphicx}
+\usepackage{mathtools}
+% \usepackage{epstopdf, epsfig}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+%no input
+\newcommand{\vnab}{\vec{\nabla}}
+\newcommand{\delop}{\nabla^{2}}
+\newcommand{\vu}{\vec{u}}
+%input
+\newcommand{\vflu}[1]{\delta\vec{#1}}
+\newcommand{\ptime}[1]{\frac{\partial{#1}}{\partial t}}
+\newcommand{\ftime}[1]{\frac{d{#1}}{dt}}
+
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\newcommand*{\Value}{\frac{1}{2}x^2}%
+%\begin{document}
+%    \[\abs{\Value}  \quad \norm{\Value}  \qquad\text{non-starred}  \]
+%    \[\abs*{\Value} \quad \norm*{\Value} \qquad\text{starred}\qquad\]
+%\end{document}
+
+\shorttitle{PPPL Turbulence Lecture Notes}
+\shortauthor{C. A. Cartagena-Sanchez}
+
+\title{PPPL Turbulence Lecture Notes}
+
+\author{*\aff{1}}
+
+\affiliation{\aff{1}Bryn Mawr Plasma Laboratory, Bryn Mawr College,
+Bryn Mawr, PA, USA}
+
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This series of notes corresponds to a series of graduate plasma physics lectures given by Dr. Jason TenBarge at the Princeton Plasma Physics Laboratory. The current goal of this document is to grow into a large reference for the graduate students at the Bryn Mawr Plasma Laboratory.
+\end{abstract}
+\section{Introduction to Turbulence and K41}
+Turbulence is chaotic flow regime characterized by diffusivity, rotationality, and dissipation. To start we will look at the most basic of equations the Euler equations.\\
+\subsection{{\bfseries Equations of Hydrodynamic Turbulence} (Euler equations)}
+\begin{enumerate}
+    \item Incompressibility: $\rho = constant \implies \vnab\cdot\vu$
+    \item Navier-Stokes equation (NS): 
+    \begin{equation}\label{eqn:NS}
+        \frac{\partial{\vu}}{\partial{t}} + (\vu\cdot\vnab)\vu = -\vnab(\frac{P}{\rho}) + \nu\delop\vu  + \vec{f}
+    \end{equation}
+    
+    \item Energy: \[
+    \frac{\partial{E}}{\partial{t}} + \vnab\cdot[\vu(E + P)] = 0;\ E = \rho u^2/2+ \rho l
+    \]
+\end{enumerate}
+One can assume {\bfseries incompressibility} when the speed of sound in the medium is much faster than the phenomenon of interest. The Navier-Stokes equation can be thought as stating temporal change and convection of the flow are due to thermal, viscous, and external forces.\\
+
+\subsection{{\bfseries Parameters of System Pertaining to Turbulence} (Scale Theory)}
+Essentially we will be defining characteristic scales of the turbulence system.
+\begin{enumerate}
+    \item characteristic velocity (outer scale); $u_{o}$
+    \item characteristic length (outer scale); $L$
+    \item viscosity, $\nu$
+\end{enumerate}
+The two "characteristic" scales are associated with external forces; while the viscosity is set by molecular properties of the fluid. Okay, let us look at the NS and compare the convection and the viscous term 
+\[
+    \frac{\textrm{convection}}{\textrm{viscous}} \thicksim \frac{u_{o}^2/L}{\nu u_{o}/L^2} = \frac{u_{o}L}{\nu}
+\]
+The result of the comparison is a characteristic parameter of fluids, the Reynolds number
+\begin{equation}
+    R_{e} = \frac{u_{o}L}{\nu}
+\end{equation}
+\break
+\subsection{{\bfseries Phenomenological Picture of Turbulence}}
+At every point in the fluid, the velocity is fluctuating around its mean value, $\vu_{o}$, 
+\[ 
+    \vu = \vu_{o} + \vflu{u}.
+\]
+We can transform the mean field and at the outer-scale $\vflu{u}_{o} \thicksim \vflu{u}_{L}$. The important point here is that there is a large scale fluctuation. At this point we can redefine the Reynolds number with the large scale fluctuation
+\begin{equation}
+    R_{e} = \frac{\vflu{u}_{L}L}{\nu}
+\end{equation}
+What happens to the energy of the system?
+\[
+    E = \int d\vec{x} \abs{u^{2}}
+\]
+Recall the NS Eq:(\ref{eqn:NS}),
+\[
+    \frac{\partial{\vu}}{\partial{t}} + (\vu\cdot\vnab)\vu = -\vnab(\frac{P}{\rho}) + \nu\delop\vu  + \vec{f},
+\]
+If we were to take the integral of the inner product between the NS equation and the flow we would get the following,
+\begin{align*}
+    \int d\vec{x} (NS)\cdot \vu &= \ftime{E},\\
+    \ftime{E} = \nu\int d\vec{x}(\vu\cdot\delop\vu) &+ \int d\vec{x} (\vu\cdot\vec{f})
+\end{align*}
+One can think of the resulting equation as the change rate of the energy is equal to the viscous dissipation, the first term on the LHS, and the rate of energy injection\footnote{The external force includes the thermal forces}, the second term on the LHS.
+\end{document}
